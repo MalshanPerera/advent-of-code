@@ -22,7 +22,7 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
-	var sum = 0
+	var sum int
 	for scanner.Scan() {
 
 		str := scanner.Text()
@@ -37,11 +37,8 @@ func main() {
 
 		firstNumber, lastNumber := numbers[0], numbers[len(numbers)-1]
 
-		if len(numbers) == 1 {
-			lastNumber = firstNumber
-		}
-
-		if finalNumber, err := strconv.Atoi(fmt.Sprintf("%d%d", firstNumber, lastNumber)); err == nil {
+		finalStr := fmt.Sprintf("%d%d", firstNumber, lastNumber)
+		if finalNumber, err := strconv.Atoi(finalStr); err == nil {
 			sum += finalNumber
 		}
 	}
