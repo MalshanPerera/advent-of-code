@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"strings"
 )
 
 func main() {
@@ -26,20 +25,21 @@ func main() {
 	for scanner.Scan() {
 
 		str := scanner.Text()
-		splitText := strings.Split(str, "")
 		numbers := []int{}
 
-		for i := 0; i < len(splitText); i++ {
-			if num, err := strconv.Atoi(splitText[i]); err == nil {
+		for i := 0; i < len(str); i++ {
+			if num, err := strconv.Atoi(string(str[i])); err == nil {
 				numbers = append(numbers, num)
 			}
 		}
 
-		firstNumber, lastNumber := numbers[0], numbers[len(numbers)-1]
+		if len(numbers) > 0 {
+			firstNumber, lastNumber := numbers[0], numbers[len(numbers)-1]
 
-		finalStr := fmt.Sprintf("%d%d", firstNumber, lastNumber)
-		if finalNumber, err := strconv.Atoi(finalStr); err == nil {
-			sum += finalNumber
+			finalStr := fmt.Sprintf("%d%d", firstNumber, lastNumber)
+			if finalNumber, err := strconv.Atoi(finalStr); err == nil {
+				sum += finalNumber
+			}
 		}
 	}
 
