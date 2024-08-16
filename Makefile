@@ -5,7 +5,7 @@ YEAR=2023
 DAYS=day01 day02
 
 # Target to run a specific day
-run_%:
+day%:
 	@echo "Running day $*..."
 	@cd $(YEAR)/day$* && go run .
 

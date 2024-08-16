@@ -107,7 +107,6 @@ func findNumberWords(text string, validWords map[string]int) []int {
 		if num, err := strconv.Atoi(char); err == nil {
 			numbers = append(numbers, num)
 			currentWord = char
-
 			continue
 		}
 
