@@ -10,6 +10,11 @@ import (
 )
 
 func main() {
+	partOne()
+	partTwo()
+}
+
+func partOne() {
 	fileName := "gameData.txt"
 
 	file, err := os.Open(fileName)
@@ -77,5 +82,69 @@ func main() {
 		}
 	}
 
-	fmt.Println("Sum of the power of these sets:", sum)
+	fmt.Println("Total Sum:", sum)
+}
+
+func partTwo() {
+	fileName := "gameData.txt"
+
+	file, err := os.Open(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	allCubes := []map[string]int{}
+
+	for scanner.Scan() {
+
+		str := scanner.Text()
+
+		strList := strings.Split(str, ":")
+		subList := strings.Split(strList[1], ";")
+
+		maxCube := map[string]int{
+			"red":   0,
+			"green": 0,
+			"blue":  0,
+		}
+
+		for _, value := range subList {
+
+			cubes := strings.Split(value, ",")
+
+			for _, cube := range cubes {
+				cube = strings.TrimSpace(cube)
+
+				strList := strings.Split(cube, " ")
+				cubeColor := strList[1]
+				availableCubes := strList[0]
+
+				if max, exists := maxCube[cubeColor]; exists {
+					currentCount, err := strconv.Atoi(availableCubes)
+					if err != nil {
+						panic(err)
+					}
+
+					if max < currentCount {
+						maxCube[cubeColor] = currentCount
+					}
+				}
+			}
+		}
+		allCubes = append(allCubes, maxCube)
+	}
+
+	sum := 0
+	for _, cubes := range allCubes {
+		temp := 1
+		for _, number := range cubes {
+			temp *= number
+		}
+		sum += temp
+	}
+
+	fmt.Println("Total Sum:", sum)
 }
